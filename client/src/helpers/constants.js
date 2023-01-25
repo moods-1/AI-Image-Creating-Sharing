@@ -1,3 +1,6 @@
+export const API_BASE_ROUTE =
+	import.meta.env.VITE_API_BASE_ROUTE || 'http://localhost:8038';
+
 export const SURPRISE_ME_PROMPTS = [
 	'an armchair in the shape of an avocado',
 	'a surrealist dream-like oil painting by Salvador Dalí of a cat playing checkers',

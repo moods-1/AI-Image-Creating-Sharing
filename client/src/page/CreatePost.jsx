@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { preview } from '../assets';
 import { getRandomPropmt } from '../helpers/helperFunctions';
-import { FormField, Loader } from '../components';
+import { API_BASE_ROUTE } from '../helpers/constants';
+import { generateAiImage } from '../api/dalle';
+import { generatePost } from '../api/post';
+import { FormField, FormFieldButton, Loader } from '../components';
 
 const CreatePost = () => {
 	const navigate = useNavigate();
@@ -13,48 +16,37 @@ const CreatePost = () => {
 		prompt: '',
 		photo: '',
 	});
-	const apiURL = import.meta.env.API_ROUTE;
 
 	const generateImage = async () => {
 		if (postForm.prompt) {
-			try {
-				setGeneratingImage(true);
-				const response = await fetch('http://localhost:8038/api/v1/dalle', {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({ prompt: postForm.prompt }),
-				});
-				const data = await response.json();
+			setGeneratingImage(true);
+			const response = await generateAiImage({ prompt: postForm.prompt });
+			if (response.status === 200) {
 				setPostForm({
 					...postForm,
-					photo: `data:image/jpeg;base64,${data.photo}`,
+					photo: `data:image/jpeg;base64,${response.data.photo}`,
 				});
-			} catch (error) {
-				alert(error);
-			} finally {
-				setGeneratingImage(false);
+			} else {
+				alert('There was an error generating the image.');
 			}
+			setGeneratingImage(false);
 		} else {
 			alert('Please enter a prompt.');
 		}
 	};
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (postForm.prompt && postForm.photo) {
 			setLoading(true);
-			try {
-				const response = await fetch('http://localhost:8038/api/v1/post', {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify(postForm),
-				});
-				await response.json();
-				navigate('/');
-			} catch (error) {
-				alert(error);
-			} finally {
+			const response = await generatePost(postForm);
+			if (response.status <= 300) {
 				setLoading(false);
+				navigate('/');
+			} else {
+				alert('There was an problem creating the post.');
 			}
+			setLoading(false);
 		} else {
 			alert('Please enter a prompt and generate an image.');
 		}
@@ -81,7 +73,7 @@ const CreatePost = () => {
 					them with the community.
 				</p>
 			</div>
-			<form className='mt-16 max-w-3xl' onSubmit={handleSubmit}>
+			<form className='mt-8 max-w-3xl' onSubmit={handleSubmit}>
 				<div className='flex flex-col gap-5'>
 					<FormField
 						LabelName='Your name'
@@ -91,15 +83,18 @@ const CreatePost = () => {
 						value={postForm.name}
 						handleChange={handleChange}
 					/>
-					<FormField
+					<FormFieldButton
 						LabelName='Prompt'
 						type='text'
 						name='prompt'
-						placeholder='A plush toy robot sitting against a yellow wall'
+						placeholder='Enter something here'
 						value={postForm.prompt}
 						handleChange={handleChange}
 						isSurpriseMe
 						handleSurpriseMe={handleSurpriseMe}
+						data={postForm}
+						generatingImage={generatingImage}
+						buttonFunction={generateImage}
 					/>
 					<div className='relative bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-64 p-3 h-64 flex justify-center items-center'>
 						{postForm.photo ? (
@@ -122,15 +117,7 @@ const CreatePost = () => {
 						)}
 					</div>
 				</div>
-				<div className='mt-5 flex gap-5'>
-					<button
-						type='button'
-						onClick={generateImage}
-						className='text-white bg-green-700 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center'
-					>
-						{generatingImage ? 'Generating ...' : 'Generate'}
-					</button>
-				</div>
+
 				<div className='mt-10'>
 					<p className='mt-2 text-[#666E75] text-[14px]'>
 						Once you have created the image, you can share it with the
@@ -138,7 +125,7 @@ const CreatePost = () => {
 					</p>
 					<button
 						type='submit'
-						className='mt-3 text-white bg-[#6469FF] font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center'
+						className='mt-3 text-white bg-[#04c401] font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center'
 					>
 						{loading ? 'Sharing ...' : 'Share with the community'}
 					</button>

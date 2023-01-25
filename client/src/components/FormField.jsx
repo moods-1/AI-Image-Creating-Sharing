@@ -29,6 +29,7 @@ const FormField = ({
 					</button>
 				)}
 			</div>
+
 			<input
 				type={type}
 				id={name}
@@ -37,7 +38,7 @@ const FormField = ({
 				value={value}
 				onChange={handleChange}
 				required
-				className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#4649FF] focus:border-[#4649FF] outline-none block w-full p-3'
+				className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#777] focus:border-[#777] outline-none block w-full p-3'
 			/>
 		</div>
 	);
