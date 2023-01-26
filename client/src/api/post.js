@@ -3,7 +3,7 @@ import { API_BASE_ROUTE } from '../helpers/constants';
 
 export const getAllPosts = async () => {
 	const url = `${API_BASE_ROUTE}/api/v1/post`;
-	return await axios(url);
+	return await axios.get(url);
 };
 
 export const generatePost = async (body) => {
