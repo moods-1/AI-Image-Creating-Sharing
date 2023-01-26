@@ -2,6 +2,7 @@ import express from 'express';
 import * as dotenv from 'dotenv';
 import { v2 as cloudinary } from 'cloudinary';
 import Post from '../models/Post.js';
+const cors = require('cors');
 
 dotenv.config();
 const router = express.Router();
@@ -12,11 +13,8 @@ cloudinary.config({
 	api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-router.get('/', async (req, res) => {
-	res
-		.setHeader('Access-Control-Allow-Origin', '*')
-		.status(200)
-		.json({ message: 'Post route ok.' });
+router.get('/', cors(), async (req, res) => {
+	res.status(200).json({ message: 'Post route ok.' });
 	// try {
 	// 	const posts = await Post.find();
 	// 	res.status(200).json({ success: true, data: posts });
