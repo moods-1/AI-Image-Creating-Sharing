@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { preview } from '../assets';
 import { getRandomPropmt } from '../helpers/helperFunctions';
-import { API_BASE_ROUTE } from '../helpers/constants';
 import { generateAiImage } from '../api/dalle';
 import { generatePost } from '../api/post';
 import { FormField, FormFieldButton, Loader } from '../components';
