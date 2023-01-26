@@ -19,9 +19,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/api/v1/post', postRoutes);
 app.use('/api/v1/dalle', dalleRoutes);
 
-app.get('/', async (req, res) => {
-	res.status(200).send('Hello from DALL-E server...');
-});
+// app.get('/', async (req, res) => {
+// 	res.status(200).send('Hello from DALL-E server...');
+// });
 
 const startServer = async () => {
 	try {
