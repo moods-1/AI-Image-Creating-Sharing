@@ -1,5 +1,8 @@
-export const API_BASE_ROUTE =
-	import.meta.env.VITE_API_BASE_ROUTE || 'http://localhost:8038';
+// export const API_BASE_ROUTE = 'https://ai-image-creating-sharing.vercel.app';
+
+// Local environment
+const PORT = import.meta.env.VITE_DB_PORT; 
+export const API_BASE_ROUTE = `http://localhost:${PORT}`;
 
 export const SURPRISE_ME_PROMPTS = [
 	'an armchair in the shape of an avocado',
