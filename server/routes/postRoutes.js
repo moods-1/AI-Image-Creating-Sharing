@@ -13,6 +13,7 @@ cloudinary.config({
 });
 
 router.get('/', async (req, res) => {
+	res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5173');
 	// try {
 	// 	const posts = await Post.find();
 	// 	res.status(200).json({ success: true, data: posts });
