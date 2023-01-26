@@ -6,7 +6,8 @@
 	"typeModuleExplanation": "Allows you to use imports like in React instead of require",
 	"type": "module",
 	"scripts": {
-		"start": "nodemon index"
+		"start": "node index",
+		"dev-start": "nodemon index"
 	},
 	"keywords": [],
 	"author": "",
