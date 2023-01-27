@@ -1,9 +1,9 @@
-// export const API_BASE_ROUTE =
-// 	'https://ai-image-creating-sharing-oe4nymcrv-moods-1.vercel.app';
+export const API_BASE_ROUTE =
+	'https://ai-image-creating-sharing-oe4nymcrv-moods-1.vercel.app';
 
 // Local environment
 const PORT = import.meta.env.VITE_DB_PORT;
-export const API_BASE_ROUTE = `http://localhost:${PORT}`;
+// export const API_BASE_ROUTE = `http://localhost:${PORT}`;
 
 export const SURPRISE_ME_PROMPTS = [
 	'an armchair in the shape of an avocado',
