@@ -1,6 +1,6 @@
 import express from 'express';
 import * as dotenv from 'dotenv';
-const cors = require('cors');
+import cors from 'cors';
 import logger from 'morgan';
 // The .js had to be added to 'connect' or an 'ERR_MODULE_NOT_FOUND' would be generated
 import connectDB from './mongodb/connect.js';

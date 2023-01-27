@@ -27,5 +27,5 @@
 		"tailwindcss": "^3.2.4",
 		"vite": "^4.0.0"
 	},
-	"proxy": "https://ai-image-creating-sharing-oe4nymcrv-moods-1.vercel.app/"
+	"proxy": "http://127.0.0.1:5173"
 }
