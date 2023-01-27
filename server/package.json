@@ -3,8 +3,6 @@
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
-	"typeModuleExplanation": "Allows you to use imports like in React instead of require",
-	"type": "module",
 	"scripts": {
 		"start": "node index",
 		"dev-start": "nodemon index"

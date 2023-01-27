@@ -1,12 +1,10 @@
-import express from 'express';
-import * as dotenv from 'dotenv';
-import { v2 as cloudinary } from 'cloudinary';
-import Post from '../models/Post.js';
-
-dotenv.config();
+require('dotenv').config();
+const express = require('express');
+const V2 = require('cloudinary');
+const Post = require('../models/Post');
 const router = express.Router();
 
-cloudinary.config({
+V2.config({
 	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
 	api_key: process.env.CLOUDINARY_API_KEY,
 	api_secret: process.env.CLOUDINARY_API_SECRET,
@@ -36,4 +34,4 @@ router.post('/', async (req, res) => {
 	}
 });
 
-export default router;
+module.exports = router;

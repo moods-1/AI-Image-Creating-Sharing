@@ -1,13 +1,12 @@
-import express from 'express';
-import * as dotenv from 'dotenv';
-import cors from 'cors';
-import logger from 'morgan';
-// The .js had to be added to 'connect' or an 'ERR_MODULE_NOT_FOUND' would be generated
-import connectDB from './mongodb/connect.js';
-import postRoutes from './routes/postRoutes.js';
-import dalleRoutes from './routes/dalleRoutes.js';
+require('dotenv').config();
+const express = require('express');
+const cors = require('cors');
+const logger = require('morgan');
+const { json, urlencoded } = express;
+const connectDB = require('./mongodb/connect');
+const postRoutes = require('./routes/postRoutes');
+const dalleRoutes = require('./routes/dalleRoutes');
 
-dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 8088;
 
@@ -17,8 +16,8 @@ app.use(
 	})
 );
 app.use(logger('dev'));
-app.use(express.json({ limit: '50mb' }));
-app.use(express.urlencoded({ extended: false }));
+app.use(json({ limit: '50mb' }));
+app.use(urlencoded({ extended: false }));
 
 app.use('/api/v1/post', postRoutes);
 app.use('/api/v1/dalle', dalleRoutes);
